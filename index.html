@@ -67,7 +67,7 @@
     </head>
     <body>
         <div id="game-selection">
-            <h1>Select a Version of The Binding of Isaac</h1>
+            <h1>The Binding of Isaac - Version Selection</h1>
             <button onclick="loadGame('tboi-wotl.swf')">Wrath of the Lamb (v1.48)</button>
             <button onclick="loadGame('tboi-eternal.swf')">Eternal Edition (v1.666)</button>
             <div class="warning">Could crash on less powerful devices.</div>
@@ -108,13 +108,10 @@
             };
 
             function loadGame(gameUrl) {
-                // Hide the game selection menu
                 document.getElementById('game-selection').style.display = 'none';
 
-                // Show the Ruffle player
                 document.getElementById('ruffle').style.display = 'block';
 
-                // Embed the chosen game
                 swfobject.embedSWF(gameUrl, 'ruffle');
             }
 
