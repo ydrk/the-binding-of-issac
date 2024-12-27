@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>The Binding of Issac</title>
+        <title>The Binding of Isaac</title>
         <link rel="icon" type="image/x-icon" href="icon.png">
         <style>
             html, body {
@@ -10,8 +10,12 @@
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
+                font-family: Arial, sans-serif;
+                background-color: #121212;
+                color: #f1f1f1;
             }
             #ruffle {
+                display: none;
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -19,9 +23,55 @@
                 height: 100%;
                 overflow: hidden;
             }
+            #game-selection {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                background-color: #1e1e1e;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                width: 90%;
+                max-width: 400px;
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+                color: #e0e0e0;
+            }
+            button {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+                padding: 15px 20px;
+                font-size: 18px;
+                color: #fff;
+                background: linear-gradient(45deg, #6200ea, #3700b3);
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            button:hover {
+                background: linear-gradient(45deg, #bb86fc, #6200ea);
+                transform: scale(1.05);
+            }
+            .warning {
+                color: #ff3b3b;
+                font-size: 14px;
+                margin-top: 5px;
+            }
         </style>
     </head>
     <body>
+        <div id="game-selection">
+            <h1>Select a Version of The Binding of Isaac</h1>
+            <button onclick="loadGame('tboi-wotl.swf')">Wrath of the Lamb (v1.48)</button>
+            <button onclick="loadGame('tboi-eternal.swf')">Eternal Edition (v1.666)</button>
+            <div class="warning">Could crash on less powerful devices.</div>
+        </div>
         <div id="ruffle" style="text-align: center;"></div>
         <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
         <script>
@@ -55,10 +105,17 @@
                 };
 
                 player.load({ url: url });
-            }
+            };
 
-            window.onload = function() {
-                swfobject.embedSWF('game.swf', 'ruffle');
+            function loadGame(gameUrl) {
+                // Hide the game selection menu
+                document.getElementById('game-selection').style.display = 'none';
+
+                // Show the Ruffle player
+                document.getElementById('ruffle').style.display = 'block';
+
+                // Embed the chosen game
+                swfobject.embedSWF(gameUrl, 'ruffle');
             }
 
             window.onresize = function() {
